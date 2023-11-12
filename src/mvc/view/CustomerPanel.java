@@ -1,12 +1,14 @@
 package mvc.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import mvc.model.CustomerDAO;
@@ -16,7 +18,9 @@ public class CustomerPanel extends AbstractPanel {
     private JPanel leftPanel;
     private JPanel letfInternalPanel;
     private JPanel rightPanel;
+    private int numCustomers;
     private List<JButton> buttons;
+    private JLabel customerCounter;
 
     public CustomerPanel() {
         leftPanel.addComponentListener(this);
@@ -53,12 +57,34 @@ public class CustomerPanel extends AbstractPanel {
 
         this.addButtons();
 
+        Font negrita = new Font("Arial", Font.BOLD, 14);
+        this.customerCounter = new JLabel("N° de Clientes: " + this.numCustomers);
+        customerCounter.setFont(negrita);
+        this.customerCounter.setBounds(21, 389, 250, 20);
+        this.leftPanel.add(this.customerCounter);
+
+    }
+
+    public void updateClients() {
+
+        buttons = null;
+        letfInternalPanel.removeAll();
+
+        buttons = new ArrayList<>();
+        CustomerDAO.selectCustomer().forEach(customer -> {
+            buttons.add(new CustomerButton(customer));
+        });
+        buttons.add(AbstractPanel.RETURN_BUTTON);
+
+        this.addButtons();
+
     }
 
     private void addButtons() {
 
         // width: 150 height: 30
         int numButtons = this.buttons.size();
+        this.numCustomers = numButtons;
         JButton[] buttonsArray = new JButton[numButtons];
 
         for (int i = 0; i < numButtons; i++) {
@@ -78,7 +104,7 @@ public class CustomerPanel extends AbstractPanel {
                 this.letfInternalPanel.add(jButton);
                 x += 170;
             }
-            if ((x + 150) > panelsize) {
+            if ((x + 150) > (panelsize - 20)) {
                 x = 20;
                 y += 70;
             }
@@ -119,6 +145,8 @@ public class CustomerPanel extends AbstractPanel {
             int heigthInternal = (int) (heigth * 0.05F);
             this.letfInternalPanel.setLocation(widthInternal, heigthInternal);
             this.letfInternalPanel.setSize(width - (widthInternal * 2), heigth - (heigthInternal * 2));
+            this.customerCounter.setLocation(21 + ((int) (width * 0.05F)),
+                    (heigth - (heigthInternal * 2)) + ((int) (heigth * 0.05F)));
         }
 
     }

@@ -1,5 +1,8 @@
 package mvc.model;
 
+/**
+ * JavaBean that represents a client/customer.
+ */
 public class CustomerDTO {
 
     private int id;

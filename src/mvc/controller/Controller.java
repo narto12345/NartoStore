@@ -59,6 +59,7 @@ public class Controller implements ActionListener, MouseListener, IAccessories {
 
         if (e.getSource() == this.menuPanel.getCustomerButton()) {
             this.menuPanel.getCustomerButton().setBackground(Controller.COLOR_MOUSE_CLICKED);
+            this.customerPanel.updateClients();
             this.menuPanel.setVisible(false);
             this.customerPanel.setVisible(true);
         }
@@ -76,9 +77,7 @@ public class Controller implements ActionListener, MouseListener, IAccessories {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
         this.menuPanelActionsSelecting(e);
-
     }
 
     /**

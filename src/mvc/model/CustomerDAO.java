@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * This class contains the methods that allow direct operations with the
+ * database.
+ * It depends on the ConnectionSQLite and CustomerDTO classes for its correct
+ * operation.
+ */
 public class CustomerDAO {
 
     private static final String SELECT_CUSTOMER = "SELECT id,name,lastName,identification,cellPhone FROM customer";
@@ -15,6 +21,11 @@ public class CustomerDAO {
     private static final String UPDATE_CUSTOMER = "UPDATE customer SET name=?,lastName=?,identification=?,cellPhone=? WHERE id=?";
     private static final String DELETE_CUSTOMER = "DELETE FROM customer WHERE id=?";
 
+    /**
+     * Return all existing clients.
+     * 
+     * @return Returns a dynamic array with all existing clients in the database.
+     */
     public static List<CustomerDTO> selectCustomer() {
 
         List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
@@ -52,6 +63,15 @@ public class CustomerDAO {
 
     }
 
+    /**
+     * Returns a customer with all attributes complete, starting from the ID
+     * referenced by a CustomerDTO object passed as an argument.
+     * 
+     * @param customer This object must have the "id" attribute set, so that the
+     *                 implementation of this method can perform a search based on
+     *                 that value.
+     * @return Returns a customer from the search performed.
+     */
     public static CustomerDTO selectCutomerById(CustomerDTO customer) {
 
         Connection conn = null;
@@ -84,6 +104,14 @@ public class CustomerDAO {
 
     }
 
+    /**
+     * Creates a customer from a CustomerDTO type object provided by the user
+     * 
+     * @param customer CustomerDTO object that represents the customer that will be
+     *                 inserted or created in the database.
+     * @return Returns True if the client was created successfully, otherwise it
+     *         returns False if the client was not created successfully.
+     */
     public static boolean insertCustomer(CustomerDTO customer) {
 
         boolean result = false;
@@ -115,6 +143,17 @@ public class CustomerDAO {
 
     }
 
+    /**
+     * Updates the information of a customer in the database, based on an existing
+     * instance.
+     * 
+     * @param customer CustomerDTO object that represents the customer to update. It
+     *                 is important that the "id" attribute corresponds to the
+     *                 client for whom you wish to update information.
+     * @return Returns True if the client could be updated successfully. On the
+     *         other hand, if it returns False it means that the client could not be
+     *         updated successfully.
+     */
     public static boolean updateCustomer(CustomerDTO customer) {
 
         boolean result = false;
@@ -147,6 +186,15 @@ public class CustomerDAO {
 
     }
 
+    /**
+     * Delete a customer from the database.
+     * 
+     * @param customer CustomerDTO object that represents the customer to delete.
+     *                 The object must have the "id" attribute defined to achieve
+     *                 correct deletion.
+     * @return Returns True if the client was successfully deleted and returns False
+     *         if the client could not be successfully deleted.
+     */
     public static boolean deleteCustomer(CustomerDTO customer) {
 
         boolean result = false;

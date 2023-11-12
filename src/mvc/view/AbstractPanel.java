@@ -1,6 +1,7 @@
 package mvc.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -52,6 +53,7 @@ public abstract class AbstractPanel extends JPanel implements ComponentListener,
 
     private void setReturnButton() {
         RETURN_BUTTON.setFocusable(false);
+        RETURN_BUTTON.setFont((new Font("Arial", Font.PLAIN, 16)));
         RETURN_BUTTON.setBackground(Color.WHITE);
         RETURN_BUTTON.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, false));
     }
